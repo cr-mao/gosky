@@ -1,9 +1,8 @@
-##   gosky  framework
+##   gosky  框架
 
-fast, easy , friendly for phper. 
-[中文文档](README_CN.md)
+ 快速、简单、对phper友好
 
-####  install and use 
+####  安装、使用
 ```shell
 # 请下载 go 1.18.5 版本
 export GO111MODULE=on
@@ -24,7 +23,8 @@ gosky serve --env=production
 ```
 
 
-####  docker init  demo table  
+####  docker启动项目要的demo 数据库和表结构
+也可以自行导入 [demo.sql](demo.sql)
 ```shell 
 docker build -t mysql-for-go:v1 -f mysqlDockerfile .
 docker run -itd --name mysqlforgodemo -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306 mysql-for-go:v1
@@ -32,17 +32,18 @@ docker run -itd --name mysqlforgodemo -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306
 ```
 
 
-#### test 
+#### 测试
+
+apitests 目录下写http 接口测试，已做好初始化工作
 ```shell 
  go test -v ./...
 ```
 
 
-#### framework struct 
-
+#### framework struct
 
 ```text
-├── apitests     (api test)
+├── apitests     http接口测试
 ├── app
 │   ├── http  (http serve)
 │   │   ├── controllers  
@@ -59,10 +60,10 @@ docker run -itd --name mysqlforgodemo -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306
 │   └── models 
 │   │   └── user_model
 │   │   │   ├── user_model.go 
-├── bootstrap 
-├── build  
-├── cmd    
-├── config  ( config function ,initial,will register to global viper object)
+├── bootstrap (框架启动时初始化数据库，日志，redis 等）
+├── build   (构建相关）
+├── cmd    （命令行处理）
+├── config  (配置函数，项目起来会注册到全局的viper对象中)
 ├── docs    
 ├── infra   
 │   ├── app      
@@ -83,6 +84,6 @@ docker run -itd --name mysqlforgodemo -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306
 
 ```
 
-#### develop doc 
+#### 接口开发文档
 
 [docs](docs/index.md)
