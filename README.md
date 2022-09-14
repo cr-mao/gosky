@@ -4,7 +4,7 @@
 
 ####  how to use 
 ```shell
-# 请下载 go 1.8.5 版本
+# 请下载 go 1.18.5 版本
 export GO111MODULE=on
 go mod download
 go run main.go --help 
