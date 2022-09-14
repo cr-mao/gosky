@@ -59,6 +59,10 @@ docker run -itd --name mysqlforgodemo -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306
 │   └── models 
 │   │   └── user_model
 │   │   │   ├── user_model.go 
+│   └── requests  （requests valid)
+│   └── services   
+│   │   └── user
+│   │   │   ├── user_service.go 
 ├── bootstrap 
 ├── build  
 ├── cmd    

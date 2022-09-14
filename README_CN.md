@@ -57,6 +57,10 @@ apitests 目录下写http 接口测试，已做好初始化工作
 │   │   │   ├── route_api.go 
 │   │   │   └── router.go
 │   │   └── serve.go
+│   └── requests  （requests valid)
+│   └── services   
+│   │   └── user
+│   │   │   ├── user_service.go 
 │   └── models 
 │   │   └── user_model
 │   │   │   ├── user_model.go 
