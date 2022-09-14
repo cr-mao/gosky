@@ -1,6 +1,5 @@
 ##   my  go framework  base skeleton
 
-**个人框架，可做参考，会一直完善**
 
 ####  how to use 
 ```shell
