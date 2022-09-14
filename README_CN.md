@@ -14,7 +14,7 @@ go run main.go serve --env=local
 # make model  
 go run main.go make model `table_name`
 # sql2struct  还需要手动改改即可
-go run main.go sql struct --table=`table_name`
+go run main.go sql struct --table=`table_name` --port=3308
 
 # 编译成linux 二进制
 CGO_ENABLED=0 GOOS=linux  go build -o gosky main.go

@@ -19,6 +19,7 @@ type DBInfo struct {
 	UserName string
 	Password string
 	Charset  string
+	Port     string
 }
 
 // 字段属性
@@ -66,10 +67,11 @@ func NewDBModel(info *DBInfo) *DBModel {
 func (m *DBModel) Connect() error {
 	var err error
 	dsn := fmt.Sprintf(
-		"%s:%s@tcp(%s)/information_schema?charset=%s&parseTime=True&loc=Local",
+		"%s:%s@tcp(%s:%s)/information_schema?charset=%s&parseTime=True&loc=Local",
 		m.DBInfo.UserName,
 		m.DBInfo.Password,
 		m.DBInfo.Host,
+		m.DBInfo.Port,
 		m.DBInfo.Charset,
 	)
 	m.DBEngine, err = sql.Open(m.DBInfo.DBType, dsn)
