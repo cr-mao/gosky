@@ -1,0 +1,36 @@
+package {{PackageName}}_model
+
+import (
+	"github.com/spf13/cast"
+
+    "gosky/infra/db"
+)
+
+type {{StructName}} struct {
+    //fix
+	ID uint64 `gorm:"column:id;primaryKey;autoIncrement;" json:"id,omitempty"`
+    // Put fields in here
+    FIXME()
+
+}
+
+
+func ({{StructName}}) TableName() string {
+        return "{{TableName}}"
+}
+
+func ({{VariableName}} *{{StructName}}) Create(tx *gorm.DB) {
+    tx.Create(&{{VariableName}})
+}
+
+func ({{VariableName}} *{{StructName}}) Save(tx *gorm.DB) (rowsAffected int64) {
+    result := tx.Save(&{{VariableName}})
+    return result.RowsAffected
+}
+
+func ({{VariableName}} *{{StructName}}) Delete(tx *gorm.DB) (rowsAffected int64) {
+    result := tx.Delete(&{{VariableName}})
+    return result.RowsAffected
+}
+
+
