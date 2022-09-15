@@ -8,9 +8,9 @@ package models
 //}
 
 type UserAllInfo struct {
-	IsNew int8 `json:"is_new"`
+	IsNew int64 `json:"is_new"`
 	// 用户唯一标志 即token
 	Guid string `json:"guid"`
 	// 0正常1禁用
-	ForbiddenStatus int8 `json:"forbidden_status"`
+	ForbiddenStatus int64 `json:"forbidden_status"`
 }

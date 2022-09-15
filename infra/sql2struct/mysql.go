@@ -33,12 +33,12 @@ type TableColumn struct {
 }
 
 var DBTypeToStructType = map[string]string{
-	"int":        "int32",
-	"tinyint":    "int8",
-	"smallint":   "int32",
-	"mediumint":  "int32",
+	"int":        "int64",
+	"tinyint":    "int64",
+	"smallint":   "int64",
+	"mediumint":  "int64",
 	"bigint":     "int64",
-	"bit":        "int32",
+	"bit":        "int64",
 	"bool":       "bool",
 	"enum":       "string",
 	"set":        "string",

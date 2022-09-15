@@ -12,7 +12,7 @@ type User struct {
 	// 用户唯一标志 即token
 	Guid string `gorm:"column:guid;index;" json:"guid"`
 	// 0正常1禁用
-	ForbiddenStatus int8 `gorm:"column:forbidden_status" json:"forbidden_status"`
+	ForbiddenStatus int64 `gorm:"column:forbidden_status" json:"forbidden_status"`
 }
 
 func (User) TableName() string {
