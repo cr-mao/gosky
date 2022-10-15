@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"time"
 
 	"github.com/pkg/errors"
@@ -105,17 +106,35 @@ func InitMysqlClientWithOptions(clientName, dsn string, logger gormlogger.Interf
 }
 
 //获得gorm.DB 事务实例
-func Tx(ctx context.Context, clientName string) *gorm.DB {
+func Tx(parent context.Context, clientName string) *gorm.DB {
 	if client, ok := connectionMap.mapping[clientName]; ok {
-		return client.Begin().WithContext(ctx)
+		ctx := parent.(*gin.Context)
+		txdb, ok := ctx.Get("tx_id")
+		//同一次请求 ， 重复用用Tx方法 第二次直接用老的事务，不能再Begin了,不然不是一个事务。
+		if ok {
+			return txdb.(*gorm.DB)
+		}
+		//第一次,withContext 会调 db.Session ，Session create new db session
+		res := client.Begin().WithContext(parent)
+		ctx.Set("tx_id", res)
+		return res
 	}
 	return nil
 }
 
 //获得gorm.DB session实例
-func Session(ctx context.Context, clientName string) *gorm.DB {
+func Session(parent context.Context, clientName string) *gorm.DB {
 	if client, ok := connectionMap.mapping[clientName]; ok {
-		return client.WithContext(ctx)
+		ctx := parent.(*gin.Context)
+		sessionDb, ok := ctx.Get("session_id")
+		//同一次请求 ， 重复用用Tx方法 第二次直接用老的事务，不能再Begin了,不然不是一个事务。
+		if ok {
+			return sessionDb.(*gorm.DB)
+		}
+		//第一次,withContext 会调 db.Session ，Session create new db session
+		res := client.WithContext(parent)
+		ctx.Set("session_id", res)
+		return res
 	}
 	return nil
 }
