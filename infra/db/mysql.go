@@ -108,7 +108,11 @@ func InitMysqlClientWithOptions(clientName, dsn string, logger gormlogger.Interf
 //获得gorm.DB 事务实例
 func Tx(parent context.Context, clientName string) *gorm.DB {
 	if client, ok := connectionMap.mapping[clientName]; ok {
-		ctx := parent.(*gin.Context)
+		ctx, ok := parent.(*gin.Context)
+		if !ok {
+			//  非gin.Context处理
+			return client.Begin().WithContext(parent)
+		}
 		txdb, ok := ctx.Get("tx_id")
 		//同一次请求 ， 重复用用Tx方法 第二次直接用老的事务，不能再Begin了,不然不是一个事务。
 		if ok {
@@ -125,7 +129,10 @@ func Tx(parent context.Context, clientName string) *gorm.DB {
 //获得gorm.DB session实例
 func Session(parent context.Context, clientName string) *gorm.DB {
 	if client, ok := connectionMap.mapping[clientName]; ok {
-		ctx := parent.(*gin.Context)
+		ctx, ok := parent.(*gin.Context)
+		if !ok {
+			return client.WithContext(parent)
+		}
 		sessionDb, ok := ctx.Get("session_id")
 		//同一次请求 ， 重复用用Tx方法 第二次直接用老的事务，不能再Begin了,不然不是一个事务。
 		if ok {

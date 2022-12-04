@@ -203,6 +203,10 @@ func (rds *RedisClient) GetInt64(key string) int64 {
 	return cast.ToInt64(rds.Get(key))
 }
 
+func (rds *RedisClient) GetInt32(key string) int32 {
+	return cast.ToInt32(rds.Get(key))
+}
+
 func (rds *RedisClient) GetFloat64(key string) float64 {
 	return cast.ToFloat64(rds.Get(key))
 }

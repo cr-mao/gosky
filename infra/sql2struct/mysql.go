@@ -58,6 +58,7 @@ var DBTypeToStructType = map[string]string{
 	"time":       "time.Time",
 	"float":      "float64",
 	"double":     "float64",
+	"decimal":    "decimal.Decimal",
 }
 
 func NewDBModel(info *DBInfo) *DBModel {

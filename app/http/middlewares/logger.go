@@ -45,6 +45,24 @@ func Logger() gin.HandlerFunc {
 		start := time.Now()
 		c.Next()
 
+		//尝试去回滚事务,保证不会导致 事务一直不提交。
+		txdb, ok := c.Get("tx_id")
+		//同一次请求 ， 重复用用Tx方法 第二次直接用老的事务，不能再Begin了,不然不是一个事务。
+		if ok {
+			dbTx := txdb.(*gorm.DB)
+			err := dbTx.Rollback().Error
+			if err != nil {
+				//logger.Error("tx_recover_rollback_err",
+				//	zap.Time("time", time.Now()), // 记录时间
+				//	zap.String("err", err.Error()),
+				//)
+			} else {
+				logger.Error("tx_recover_rollback",
+					zap.Time("time", time.Now()), // 记录时间
+				)
+			}
+		}
+
 		// 开始记录日志的逻辑
 		cost := time.Since(start)
 		responStatus := c.Writer.Status()
