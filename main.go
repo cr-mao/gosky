@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"gosky/infra/conf"
+	"log"
 	"os"
 	"time"
 
@@ -15,12 +16,19 @@ import (
 	"gosky/config"
 )
 
+var (
+	BuildTime string
+	Version   string
+)
+
 var rootCmd = &cobra.Command{
 	Use:   "gosky",
 	Short: "this is gosky framework",
 }
 
 func init() {
+	log.Printf("Version: %s", Version)
+	log.Printf("BuildTime: %s", BuildTime)
 	// 加载 config 目录下的配置信息
 	config.Initialize()
 

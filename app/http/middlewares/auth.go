@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"github.com/gin-gonic/gin"
-	"gosky/app/services/user"
+	"gosky/app"
 	"gosky/infra/errcode"
 	"gosky/infra/response"
 )
@@ -13,7 +13,7 @@ func Auth() gin.HandlerFunc {
 		if len(guid) == 0 {
 			response.ErrorAbort(c, errcode.ErrCodes.ErrParams)
 		}
-		userService := user.NewUserService()
+		userService := app.UserService()
 		if !userService.IsExistByGuid(c, guid) {
 			response.ErrorAbort(c, errcode.ErrCodes.ErrAuthenticationHeader)
 			return

@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 
 	"gosky/infra/helpers"
 	"gosky/infra/logger"

@@ -2,7 +2,7 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"gosky/app/services/user"
+	"gosky/app"
 	"gosky/infra/errcode"
 
 	"gosky/infra/response"
@@ -15,7 +15,7 @@ type LoginController struct {
 // login
 func (cc *LoginController) Login(c *gin.Context) {
 	guid := c.GetHeader("guid")
-	userService := user.NewUserService()
+	userService := app.UserService()
 	userAllInfo, err := userService.GetUserInfoByGuidOrCreate(c, guid)
 	if err != nil {
 		response.ErrorAbort(c, errcode.ErrCodes.ErrInternalServer)
